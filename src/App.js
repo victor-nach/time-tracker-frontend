@@ -8,6 +8,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { useApolloClient } from "@apollo/client";
 
 function App() {
+
   return (
     <div className="App">
       <h1>App page </h1>

@@ -1,9 +1,11 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import auth from "../auth";
+import store from "store";
 
 function Dashboard(props) {
     console.log("Auth:", auth.isAuthenticated())
+    console.log(store.get('user'))
   return (
    <div>
         <h1>Protected layer</h1>
