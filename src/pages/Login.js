@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import auth from "../auth";
 import store from "store";
+import { baseURl } from '../config/config';
 
 function Login(props) {
   console.log("Auth:", auth.isAuthenticated());
@@ -15,7 +16,7 @@ function Login(props) {
 
     var postData = { query: query(data.email, data.password) };
     axios
-      .post("http://localhost:8080/graphql", postData)
+      .post(baseURl, postData)
       .then(function (response) {
         // if error
         if (response.data.errors) {

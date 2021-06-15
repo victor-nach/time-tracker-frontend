@@ -3,20 +3,50 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import auth from "../auth";
 import store from "store";
+import axios from "axios";
+import { baseURl } from '../config/config';
 
 function Signup(props) {
   console.log("Auth:", auth.isAuthenticated());
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (d) => {
-    console.log(JSON.stringify(d));
-    //   make request
+  const onSubmit = (data) => {
+    const query = (data) =>
+    `mutation { signUp( email: \"${data.email}\", name: \"${data.name}\", passcode: \"${data.password}\") {  success jwtToken refreshToken  User {id name email} } }`;
 
-    // update local storage
-    store.set("user", d);
+  var postData = { query: query(data) };
+  axios
+    .post(baseURl, postData)
+    .then(function (response) {
+      // if error
+      if (response.data.errors) {
+        const {
+          message,
+          extensions: { code, errorType },
+        } = response.data.errors[0];
+        console.log({ message });
+        console.log({ code });
 
-    auth.login(() => {
-      props.history.push("/dashboard");
+        if (code === 108) {
+
+        }
+        console.log({ errorType });
+      }
+
+      console.log({ response });
+      const { success, jwtToken, User } = response.data.data.signUp;
+      console.log(success, jwtToken);
+      console.log(User);
+
+      store.set("token", jwtToken);
+      store.set("user", User);
+
+      auth.login(() => {
+        props.history.push("/dashboard");
+      });
+    })
+    .catch(function (error) {
+      console.log({ error });
     });
   };
 
