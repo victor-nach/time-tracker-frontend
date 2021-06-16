@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Route, Redirect } from "react-router-dom";
 import auth from "../auth";
 import store from "store";
 import Sessions from "../components/sessions/sessions"
@@ -63,15 +62,18 @@ function Dashboard(props) {
 
   return (
    <div>
-        <h1>Protected layer</h1>
-        <p>Welcome {user.name}</p>
-        <button
-        onClick={()=>{
-            auth.logout(() => props.history.push('/'))
-        }}
-        >
-        logout
-        </button>
+   <div className="profile">
+    <button
+    onClick={()=>{
+        auth.logout(() => props.history.push('/'))
+    }}
+    >
+    logout
+    </button>
+    <p className="">Welcome {user.name} </p>
+   </div>     
+   
+       
         <Timer getSesions={getSesions} />
         <Sessions sessions={sessions} setSessions={setSessions} getSesions={getSesions} />
    </div>

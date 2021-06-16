@@ -1,3 +1,3 @@
-const baseURl = process.env.REACT_APP_URL === '' ? process.env.REACT_APP_URL : "http://localhost:8080/graphql";
+const baseURl = process.env.REACT_APP_URL === '' ? process.env.REACT_APP_URL : "https://trackerr-app.herokuapp.com/graphql";
 
 export { baseURl }

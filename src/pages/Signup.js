@@ -55,35 +55,27 @@ function Signup(props) {
       <h1>sign up</h1>
       <p>Create an account if you don't have one</p>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <label>
           name
           <input {...register("name")} />
         </label>
-
-        <br></br>
 
         <label>
           email
           <input {...register("email")} />
         </label>
 
-        <br></br>
-
         <label>
           password
           <input {...register("password")} />
         </label>
 
-        <br></br>
-
         <input type="submit" value="submit" />
+
+        <p>Login if you have an account <Link className="link" to="/time-tracker-frontend">login</Link></p>
       </form>
 
-      <p>Login if you have an account</p>
-      <button>
-        <Link to="/">login</Link>
-      </button>
     </div>
   );
 }

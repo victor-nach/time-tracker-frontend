@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import auth from "../auth";
 import store from "store";
-import { baseURl } from '../config/config';
+import { baseURl } from "../config/config";
 
 function Login(props) {
   console.log("Auth:", auth.isAuthenticated());
@@ -27,12 +27,12 @@ function Login(props) {
           console.log({ message });
           console.log({ code });
           console.log({ errorType });
+          return;
         }
 
         console.log({ response });
-        const { success, jwtToken, User } = response.data.data.login;
-        console.log(success, jwtToken);
-        console.log(User);
+        const { message, success, jwtToken, User } = response.data.data.login;
+        console.log({ message, success });
 
         store.set("token", jwtToken);
         store.set("user", User);
@@ -48,9 +48,7 @@ function Login(props) {
 
   return (
     <div>
-      <h1>lniked login page</h1>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <label>
           email
           <input {...register("email")} />
@@ -66,14 +64,15 @@ function Login(props) {
         <br></br>
 
         <input type="submit" value="submit" />
+
+        <p>Sign up if you don't have an account <Link className="link" to="/signup">signup</Link></p>
       </form>
 
-      <br></br>
-      <br></br>
-
-      <button>
-        <Link to="/signup">signup</Link>
-      </button>
+    
+      
+      
+        
+      
     </div>
   );
 }

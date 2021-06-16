@@ -2,15 +2,9 @@ import React, { useEffect, useState } from "react";
 import Timer from "react-compound-timer";
 import store from "store";
 import axios from "axios";
-import { baseURl } from '../../config/config'
+import { baseURl } from "../../config/config";
 
 function Timere({ getSesions }) {
-  // start time
-  // stop time
-  //  duration - currentTime
-
-  // title
-  // description
   const [currentTime, setCurrentTime] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -18,7 +12,7 @@ function Timere({ getSesions }) {
   const [stopTime, setStopTime] = useState("");
 
   useEffect(() => {
-    if (currentTime) saveSession()
+    if (currentTime) saveSession();
   }, [currentTime]);
 
   const saveSession = () => {
@@ -39,7 +33,7 @@ function Timere({ getSesions }) {
 
     const cleanup = () => {};
     axios
-    .post(baseURl, postData, config)
+      .post(baseURl, postData, config)
       .then(function (response) {
         // if error
         if (response.data.errors) {
@@ -55,7 +49,7 @@ function Timere({ getSesions }) {
 
         setTitle("");
         setDescription("");
-        setCurrentTime("")
+        setCurrentTime("");
 
         console.log({ response });
         getSesions();
@@ -66,7 +60,9 @@ function Timere({ getSesions }) {
   };
 
   return (
-    <div>
+    <div className="timer">
+      <p> Start a timed session</p>
+      <br></br>
       <form>
         <label>
           Title
@@ -104,19 +100,33 @@ function Timere({ getSesions }) {
       >
         {({ start, resume, pause, stop, reset, getTimerState, getTime }) => (
           <React.Fragment>
-            <div>
-              <Timer.Days /> days
-              <Timer.Hours /> hours
-              <Timer.Minutes /> minutes
-              <Timer.Seconds /> seconds
-              <Timer.Milliseconds /> milliseconds
+            <div className="timer-values">
+              <div className="timer-box">
+                <p><Timer.Days /></p>
+                <p>days</p>
+              </div>
+
+              <div className="timer-box">
+                <p><Timer.Hours /></p>
+                <p>hours</p>
+              </div>
+
+              <div className="timer-box">
+                <p><Timer.Minutes /></p>
+                <p>minutes</p>
+              </div>
+
+              <div className="timer-box">
+                <p><Timer.Seconds /></p>
+                <p>seconds</p>
+              </div>
             </div>
-            <div>
-              {getTimerState()} {getTime()}
-            </div>
+            <div>{getTimerState() === "INITED" ? "" : getTimerState()}</div>
+
             <br />
             <div>
-              <button
+              <button name="start"
+                className="btn"
                 onClick={() => {
                   const satrtTime = new Date().getTime();
                   setStartTime(satrtTime);
@@ -126,9 +136,14 @@ function Timere({ getSesions }) {
                 Start
               </button>
 
-              <button onClick={pause}>Pause</button>
-              <button onClick={resume}>Resume</button>
+              <button className="btn" onClick={pause}>
+                Pause
+              </button>
+              <button className="btn" onClick={resume}>
+                Resume
+              </button>
               <button
+                className="btn"
                 onClick={() => {
                   const time = getTime();
                   const stpTime = new Date().getTime();
@@ -140,7 +155,9 @@ function Timere({ getSesions }) {
               >
                 Save
               </button>
-              <button onClick={reset}>Reset</button>
+              <button className="btn" onClick={reset}>
+                Reset
+              </button>
             </div>
           </React.Fragment>
         )}

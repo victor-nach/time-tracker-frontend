@@ -12,7 +12,7 @@ function ProtectedRoute({  component: Component, ...rest }) {
           return <Component {...props}/>;
         }
         return (
-          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+          <Redirect to={{ pathname: "/time-tracker-frontend", state: { from: props.location } }} />
         );
       }}
     />
